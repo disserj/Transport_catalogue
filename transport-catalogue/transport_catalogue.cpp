@@ -15,7 +15,7 @@ int TransportCatalogue::GetDistance(const Stop* stop1, const Stop* stop2) const 
 }
 
 
-void TransportCatalogue::AddRoute(const std::string& num, std::vector<std::string> stops, bool flag){
+void TransportCatalogue::AddRoute(const std::string& num, const std::vector<std::string>& stops, bool flag){
      all_buses.push_back({ num, stops, flag });
      busnum_to_bus[all_buses.back().num] = &all_buses.back();
         
