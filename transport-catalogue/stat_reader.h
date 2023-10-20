@@ -8,7 +8,7 @@
 
 namespace transport{
 
-void Response(std::ostream& out,Request_Queue& request, const TransportCatalogue& catalogue);
+void Response(std::ostream& out, RequestQueue& request, const TransportCatalogue& catalogue);
 
 void BusResponse(std::ostream& out, const std::pair<std::string,bool>& bus, const TransportCatalogue& catalogue);
 
