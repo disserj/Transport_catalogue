@@ -8,10 +8,10 @@
 
 namespace transport{
 
-void Response(std::ostream& out,Request_Queue& request, TransportCatalogue& catalogue);
+void Response(std::ostream& out,Request_Queue& request, const TransportCatalogue& catalogue);
 
-void BusResponse(std::ostream& out, std::pair<std::string,bool> bus,TransportCatalogue& catalogue);
+void BusResponse(std::ostream& out, const std::pair<std::string,bool>& bus, const TransportCatalogue& catalogue);
 
-void StopResponse(std::ostream& out, std::pair<std::string,bool> stop,TransportCatalogue& catalogue);
+void StopResponse(std::ostream& out, const std::pair<std::string,bool>& stop, const TransportCatalogue& catalogue);
     
 } // exit transport    
