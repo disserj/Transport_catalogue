@@ -7,7 +7,7 @@ using namespace transport;
 
 int main() {
     TransportCatalogue catalogue;
-    Request_Queue request;
+    RequestQueue request;
     Read(std::cin, request);
     FillCatalogue(request, catalogue);
     Response(std::cout, request, catalogue);
