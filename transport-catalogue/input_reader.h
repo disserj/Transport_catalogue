@@ -9,14 +9,14 @@
 
 namespace transport{
 
-struct Request_Queue{
-    std::vector<std::string>ToFill;
-    std::vector<std::string>ToResponse;
+struct RequestQueue{
+    std::vector<std::string> ToFill;
+    std::vector<std::string> ToResponse;
 };
 
 
-void Read(std::istream& in, Request_Queue& request);
-void FillCatalogue(Request_Queue& request,TransportCatalogue& catalogue);
+void Read(std::istream& in, RequestQueue& request);
+void FillCatalogue(RequestQueue& request, TransportCatalogue& catalogue);
 std::pair<std::vector<std::string>, bool> ReadRoute(std::string& str);
 
 std::pair<std::string,std::string> FillStops(std::string& str, TransportCatalogue& catalogue);
