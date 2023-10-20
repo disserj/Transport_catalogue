@@ -43,7 +43,7 @@ class TransportCatalogue{
     TransportCatalogue() = default;
     
   public: 
-    void AddRoute(const std::string& num, std::vector<std::string> stops, bool flag);
+    void AddRoute(const std::string& num, const std::vector<std::string>& stops, bool flag);
     void AddStop(const std::string& name, geo::Coordinates& crd);
     void SetDistance( Stop* stop1,  Stop* stop2, int dist);
     
