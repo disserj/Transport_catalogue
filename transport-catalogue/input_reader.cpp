@@ -11,7 +11,7 @@ bool NotWS(std::string& line){
     	return !std::all_of(line.begin(),line.end(),[](const auto& c){return c == ' ';});
 }
 
-void Read(std::istream& in, Request_Queue& request) {
+void Read(std::istream& in, RequestQueue& request) {
 	int count=0;
 	std::string line;
 	if (!std::getline(in, line)) return;
@@ -66,7 +66,7 @@ std::pair<std::vector<std::string>, bool> ReadRoute(std::string& str) {
     	return make_pair(stops, cycle);
 }
 
-void FillCatalogue(Request_Queue& request, TransportCatalogue& catalogue){
+void FillCatalogue(RequestQueue& request, TransportCatalogue& catalogue){
     	std::vector<std::string> to_add_bus;
     	std::vector<std::string> to_add_stop;
     	std::vector<std::pair<std::string, std::string>> to_add_dist;
