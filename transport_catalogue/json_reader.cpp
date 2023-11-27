@@ -1,7 +1,6 @@
 #include "json_reader.h"
 
 // возвращает узел с информацией для заполнения
-
 const json::Node& JsonManager::getBaseRequests() const{
     if (!doc_.GetRoot().AsMap().count("base_requests")) {
         return nothing;
@@ -66,7 +65,6 @@ void JsonManager::FillCatalogue(transport::TransportCatalogue& catalogue){
 
 // методы для заполнения каталога 
 //вспомогательный:
-
 std::tuple<std::string_view, geo::Coordinates, std::map<std::string_view, int>> JsonManager::FillStops(const json::Dict& dictionary) const{
     std::string_view stop = dictionary.at("name").AsString();
     geo::Coordinates crd = { dictionary.at("latitude").AsDouble(), dictionary.at("longitude").AsDouble() };
@@ -76,12 +74,10 @@ std::tuple<std::string_view, geo::Coordinates, std::map<std::string_view, int>> 
         distances.emplace(st, dist.AsInt());
     }
     return {stop, crd, distances};
-    
 }
 
 // методы для заполнения каталога 
 //вспомогательный:
-
 std::tuple<std::string_view, std::vector<std::string_view>, bool> JsonManager::FillBuses(const json::Dict& dictionary) const{
     std::string_view bus = dictionary.at("name").AsString();
     std::vector<std::string_view> stops;
@@ -105,7 +101,6 @@ json::Document JsonManager::ProcessReqs(const transport::TransportCatalogue& cat
         const auto& type = request_map.at("type").AsString();
         if (type == "Stop"){
            to_response_json_doc.push_back(ProcessStopRequest(request_map, catalogue).AsMap());
-            
         }
         if (type == "Bus"){
             to_response_json_doc.push_back(ProcessRouteRequest(request_map, catalogue).AsMap());
@@ -118,6 +113,7 @@ json::Document JsonManager::ProcessReqs(const transport::TransportCatalogue& cat
 
 //методы для формирования ответа
 //вспомогательный:
+
 //включаем в ответ инф. о маршруте
 const json::Node JsonManager::ProcessRouteRequest(const json::Dict& dictionary, const transport::TransportCatalogue& catalogue)const{
     json::Dict json_route_dict;
@@ -145,6 +141,7 @@ const json::Node JsonManager::ProcessRouteRequest(const json::Dict& dictionary, 
 
 //методы для формирования ответа
 //вспомогательный:
+
 //включаем в ответ инф. об остановках
 const json::Node JsonManager::ProcessStopRequest(const json::Dict& dictionary, const transport::TransportCatalogue& catalogue) const{
     json::Dict json_stops_dict;
@@ -169,6 +166,7 @@ const json::Node JsonManager::ProcessStopRequest(const json::Dict& dictionary, c
 
 //методы для формирования ответа
 //вспомогательный:
+
 //включаем в ответ карту
 const json::Node JsonManager::IncludeMapInResponse(const json::Dict& request_map,const svg::Document& svg_to_render) const {
     json::Dict json_map_dict;
@@ -176,12 +174,12 @@ const json::Node JsonManager::IncludeMapInResponse(const json::Dict& request_map
     std::stringstream ss;
     svg_to_render.Render(ss);
     json_map_dict["map"] = ss.str();
-
     return json::Node{json_map_dict};
 }
 
 //------------------------------------------------------
 //для заполнения настроек рендеринга
+
 const renderer::RenderSettings JsonManager::SetRenderSettings() const {
     const auto request_map = getRenderSettings().AsMap();
     renderer::RenderSettings render_settings;
@@ -206,8 +204,8 @@ const renderer::RenderSettings JsonManager::SetRenderSettings() const {
         }
         else if (underlayer_color.size() == 4) {
             render_settings.underlayer_color = svg::Rgba(underlayer_color[0].AsInt(), underlayer_color[1].AsInt(), underlayer_color[2].AsInt(), underlayer_color[3].AsDouble());
-        } else throw std::logic_error("wrong underlayer colortype");
-    } else throw std::logic_error("wrong underlayer color");
+        } else throw std::logic_error("error: wrong underlayer colortype");
+    } else throw std::logic_error("error: wrong underlayer color");
     
     render_settings.underlayer_width = request_map.at("underlayer_width").AsDouble();
     
@@ -221,10 +219,8 @@ const renderer::RenderSettings JsonManager::SetRenderSettings() const {
             }
             else if (color_type.size() == 4) {
                 render_settings.color_palette.push_back(svg::Rgba(color_type[0].AsInt(), color_type[1].AsInt(), color_type[2].AsInt(), color_type[3].AsDouble()));
-            } else throw std::logic_error("wrong color_palette type");
-        } else throw std::logic_error("wrong color_palette");
+            } else throw std::logic_error("error: wrong color_palette type");
+        } else throw std::logic_error("error: wrong color_palette");
     }
-    
-    
     return render_settings;
 }
