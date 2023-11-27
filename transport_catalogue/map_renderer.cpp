@@ -31,7 +31,7 @@ svg::Document MapBuilder::BuildSvg(const transport::TransportCatalogue& catalogu
     for (auto& line : RouteOutline(catalogue, sp)) svg_doc.Add(line);
     for (const auto& text : RenderBusLabel(catalogue, sp)) svg_doc.Add(text);
     for (const auto& circle : RenderStopsCircles(list_stops, sp)) svg_doc.Add(circle);
-     for (const auto& text : RenderStopsNames(list_stops, sp)) svg_doc.Add(text);
+    for (const auto& text : RenderStopsNames(list_stops, sp)) svg_doc.Add(text);
     
     return svg_doc;
 }
