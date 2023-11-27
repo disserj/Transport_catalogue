@@ -28,22 +28,21 @@ class TransportCatalogue{
     std::string name;
     geo::Coordinates point;
     std::unordered_map<std::string, int> distances;
-};
+    };
 
-struct Bus{
-    Bus() = default;
-    std::string num;
-    std::vector<std::string_view> stops;
-    bool cycle = true;
-    const std::vector<Stop*> GetStopsPtrs(const TransportCatalogue& catalogue) const{
-        std::vector<Stop*> ptrs;
-        std::transform(stops.cbegin(), stops.cend(),std::back_inserter(ptrs),[&catalogue](const std::string_view& stop){
-            return catalogue.FindStop((std::string)stop);
-        });
-        
-    return ptrs;
-    }
-};
+    struct Bus{
+        Bus() = default;
+        std::string num;
+        std::vector<std::string_view> stops;
+        bool cycle = true;
+        const std::vector<Stop*> GetStopsPtrs(const TransportCatalogue& catalogue) const{
+            std::vector<Stop*> ptrs;
+            std::transform(stops.cbegin(), stops.cend(),std::back_inserter(ptrs),[&catalogue](const std::string_view& stop){
+                return catalogue.FindStop((std::string)stop);
+            });
+        return ptrs;
+        }
+    };
 
     void AddRoute(const std::string& num, const std::vector<std::string_view>& stops, bool flag);
     void AddStop(const std::string& name, geo::Coordinates& crd);
