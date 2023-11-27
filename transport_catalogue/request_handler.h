@@ -17,6 +17,7 @@ public:
     {}
     
     void Response(std::ostream& out, JsonManager& manager);
+
     svg::Document svg_to_render;
 
 private:
