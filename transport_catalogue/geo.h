@@ -4,7 +4,7 @@
 
 namespace geo{
 
-const int RADIUS = 6371000;
+const int EARTH_RADIUS = 6371000;
 
 struct Coordinates {
     double lat;
