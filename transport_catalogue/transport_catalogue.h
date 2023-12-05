@@ -44,8 +44,8 @@ private:
     
   std::deque<Bus> all_buses;
   std::deque<Stop> all_stops;
-             std::unordered_map<std::string_view,std::shared_ptr<Stop>> stopname_to_stop; 
-    std::unordered_map<std::string_view,std::shared_ptr<Bus>> busnum_to_bus;
+  std::unordered_map<std::string_view,std::shared_ptr<Stop>> stopname_to_stop; 
+  std::unordered_map<std::string_view,std::shared_ptr<Bus>> busnum_to_bus;
 
 };
     
