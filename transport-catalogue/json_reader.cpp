@@ -141,7 +141,7 @@ json::Document JsonManager::ProcessReqs(const transport::TransportCatalogue& cat
 }
 
 
-//обработка запросов и формирование общего ответа 
+//обработка запроса по остановкам
 const json::Node StopQuery::ProcessQuery() const {
     json::Node json_stops_dict;
     const std::string& stop = dictionary.at("name").AsString();
@@ -175,7 +175,8 @@ const json::Node StopQuery::ProcessQuery() const {
 
     return json::Node{json_stops_dict};
 }                                                   
-                                                   
+
+//обработка запроса по автобусам
 const json::Node BusQuery::ProcessQuery() const  {
     json::Node json_route_dict;
     const std::string& bus = dictionary.at("name").AsString();
@@ -209,7 +210,8 @@ const json::Node BusQuery::ProcessQuery() const  {
 
     return json::Node{json_route_dict};
 }                                                   
-                                                   
+
+//добавление карты в ответ по запросу
 const json::Node MapQuery::ProcessQuery() const  {
     json::Node json_map_dict;
     const int id = dictionary.at("id").AsInt();
@@ -225,7 +227,8 @@ const json::Node MapQuery::ProcessQuery() const  {
         Build();
     return json::Node{json_map_dict};
 }                                                   
-                                                   
+
+//расчет оптимального пути и добавление в ответ по запросу
 const json::Node RouteQuery::ProcessQuery() const  {
     json::Node json_shortest_path_dict;
     const std::string& from = dictionary.at("from").AsString();
@@ -286,7 +289,7 @@ const json::Node RouteQuery::ProcessQuery() const  {
     return json::Node{json_shortest_path_dict};
 }                                                   
 
-
+//фабричный метод для создания указателя объекта, который будет обрабатывать запрос
 const QueryFactory& QueryFactory::GetFactory(std::string_view id) {
     
     static StopQuery::Factory stop_query;
@@ -303,7 +306,7 @@ const QueryFactory& QueryFactory::GetFactory(std::string_view id) {
                       заполнение настроек
 ******************************************************************/
 
-//выделяем настройки маршрута в отдельную структуру
+//метод для выделения настроек маршрута в отдельную структуру
 void JsonManager::SetRouter(transport::RouteSettings& router) {
     const json::Dict list_of_routing_settings = (*getRoutingSettings()).AsMap();
     router.bus_wait_time = list_of_routing_settings.at("bus_wait_time").AsInt();
@@ -311,7 +314,7 @@ void JsonManager::SetRouter(transport::RouteSettings& router) {
 }
 
 
-//для заполнения настроек рендеринга
+//метод для заполнения настроек рендеринга
 const renderer::RenderSettings JsonManager::SetRenderSettings() const {
     const auto request_map = (*getRenderSettings()).AsMap();
     renderer::RenderSettings render_settings;
